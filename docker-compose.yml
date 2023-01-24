@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  csgoscan:
+    container_name: csgoscan
+    image: registry.justmammoth.us/csgoscan/csgoscan:0.1
+    restart: unless-stopped
