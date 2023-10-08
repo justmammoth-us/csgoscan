@@ -1,27 +1,17 @@
 """FastAPI app for FaceitFinder redirector"""
-import requests
-import xml.etree.ElementTree as ET
 
-from fastapi import FastAPI, Path
-from fastapi.responses import RedirectResponse
-
-
-URL_FACEITFINDER = "https://faceitfinder.com"
-URL_STEAM = "https://steamcommunity.com"
+from fastapi import FastAPI, Path, Depends, Request
+from .dependencies import get_id_from_alias
+from .website import faceit_finder, cs_stats, csgo_backpack, leetify
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="csgoscan/templates")
 
-def make_faceitfinder_url(id: str) -> str:
-    """Make a FaceitFinder URL from an ID"""
-    return f"{URL_FACEITFINDER}/profile/{id}"
-
-
-def get_id_from_alias(alias: str) -> str:
-    """Get an ID from an alias"""
-    page = requests.get(f"{URL_STEAM}/id/{alias}?xml=1")
-    profile = ET.fromstring(page.content)
-    return profile.find("steamID64").text
+websites = [faceit_finder, cs_stats, csgo_backpack, leetify]
 
 
 @app.get("/")
@@ -29,17 +19,19 @@ def root():
     return {"message": "Hello World"}
 
 
-@app.get("/profiles/{id}")
-async def id(id: str = Path()) -> RedirectResponse:
+@app.get("/profiles/{alias}")
+async def get_by_id(request: Request, steam_id: str = Depends(get_id_from_alias)):
     """Redirect to FaceitFinder profile page"""
-    redirect_url = make_faceitfinder_url(id)
-    return RedirectResponse(redirect_url)
+
+    links = [{"name": w.host, "url": w.profile_link(steam_id)} for w in websites]
+
+    context = {"request": request, "steam_id": steam_id, "links": links}
+
+    return templates.TemplateResponse("index.html.j2", context)
 
 
-@app.get("/id/{alias}")
-async def profiles(alias: str = Path()) -> RedirectResponse:
-    """Redirect to FaceitFinder profile page"""
-    id = get_id_from_alias(alias)
-    print(id)
-    redirect_url = make_faceitfinder_url(id)
-    return RedirectResponse(redirect_url)
+@app.get("/id/{steam_id}")
+async def get_by_alias(steam_id: str = Path()):
+    links = [{"host": w.host, "link": w.profile_link(steam_id)} for w in websites]
+
+    return {"steam_id": steam_id, "links": links}
