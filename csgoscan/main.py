@@ -21,17 +21,15 @@ def root():
 
 @app.get("/profiles/{alias}")
 async def get_by_id(request: Request, steam_id: str = Depends(get_id_from_alias)):
-    """Redirect to FaceitFinder profile page"""
-
     links = [{"name": w.host, "url": w.profile_link(steam_id)} for w in websites]
-
     context = {"request": request, "steam_id": steam_id, "links": links}
 
     return templates.TemplateResponse("index.html.j2", context)
 
 
 @app.get("/id/{steam_id}")
-async def get_by_alias(steam_id: str = Path()):
+async def get_by_alias(request: Request, steam_id: str = Path()):
     links = [{"host": w.host, "link": w.profile_link(steam_id)} for w in websites]
+    context = {"request": request, "steam_id": steam_id, "links": links}
 
-    return {"steam_id": steam_id, "links": links}
+    return templates.TemplateResponse("index.html.j2", context)
