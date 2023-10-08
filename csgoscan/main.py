@@ -19,17 +19,22 @@ def root():
     return {"message": "Hello World"}
 
 
-@app.get("/profiles/{alias}")
-async def get_by_id(request: Request, steam_id: str = Depends(get_id_from_alias)):
+def build_context(steam_id):
     links = [{"name": w.host, "url": w.profile_link(steam_id)} for w in websites]
-    context = {"request": request, "steam_id": steam_id, "links": links}
+    return {"steam_id": steam_id, "links": links}
+
+
+@app.get("/id/{alias}")
+async def get_by_id(request: Request, steam_id: str = Depends(get_id_from_alias)):
+    context: dict = build_context(steam_id)
+    context.update(request=request)
 
     return templates.TemplateResponse("index.html.j2", context)
 
 
-@app.get("/id/{steam_id}")
+@app.get("/profiles/{steam_id}")
 async def get_by_alias(request: Request, steam_id: str = Path()):
-    links = [{"host": w.host, "link": w.profile_link(steam_id)} for w in websites]
-    context = {"request": request, "steam_id": steam_id, "links": links}
+    context: dict = build_context(steam_id)
+    context.update(request=request)
 
     return templates.TemplateResponse("index.html.j2", context)
