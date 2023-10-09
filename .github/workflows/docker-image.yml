@@ -22,11 +22,11 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/csgoscan:latest
-      - name: Build and push as ${{ github.ref }}
+      - name: Build and push as ${{ github.ref_name }}
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:$GITHUB_REF_NAME
+          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ github.ref_name }}
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
