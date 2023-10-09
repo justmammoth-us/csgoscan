@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM python:3.12-alpine AS build
+FROM python:3.11-alpine AS build
 
 # Install Poetry
 # RUN apk add --no-cache curl \
@@ -28,7 +28,7 @@ COPY . .
 RUN poetry build
 
 # Stage 2: Run the application
-FROM python:3.12-alpine
+FROM python:3.11-alpine
 
 # Set the working directory
 WORKDIR /app
