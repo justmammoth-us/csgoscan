@@ -18,17 +18,22 @@
   </header>
   <main>
     <div class="container has-background-info">
-      <h1 class="title">Hello {{ steam_id }}!</h1>
+      <h1 class="title">Hello {{ user.name }}!</h1>
       <nav class="level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Tweets</p>
+            <p class="heading">Faceit Level</p>
             <p class="title">3,456</p>
           </div>
-        </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Time played</p>
+              <p class="title">3,456</p>
+            </div>
+          </div>
       </nav>
       <ul>
-        {%- for link in links %}
+        {%- for link in user.links %}
         <li><a href="{{ link.url }}">{{ link.name }}</a></li>
         {% endfor %}
       </ul>
