@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${GITHUB_REF##*/}
+          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{  github.ref_name }}
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
