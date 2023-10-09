@@ -1,6 +1,8 @@
-import requests
 from xml.etree import ElementTree
+
+import requests
 from fastapi import Path
+
 from .website import steam
 
 

@@ -1,15 +1,18 @@
 """FastAPI app for FaceitFinder redirector"""
 
-from fastapi import FastAPI, Path, Depends, Request
-from .dependencies import get_id_from_alias
-from .website import faceit_finder, cs_stats, csgo_backpack, leetify
+from fastapi import Depends, FastAPI, Path, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+import csgoscan
+from csgoscan.dependencies import get_id_from_alias
+from csgoscan.website import cs_stats, csgo_backpack, faceit_finder, leetify
+
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="csgoscan/static"), name="static")
-templates = Jinja2Templates(directory="csgoscan/templates")
+package_path = csgoscan.__path__[0]
+app.mount("/static", StaticFiles(directory= package_path + "/static"), name="static")
+templates = Jinja2Templates(directory=package_path + "/templates")
 
 websites = [faceit_finder, cs_stats, csgo_backpack, leetify]
 
