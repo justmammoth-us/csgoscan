@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSSCAN</title>
-    <link id="favicon" rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
-  </head>
-  <body>
-    <h1>Hello {{ steam_id }}!</h1>
-    <ul>
-      {%- for link in links %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSSCAN</title>
+  <link id="favicon" rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+
+<body class="has-background-success">
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <h1 class="title">CS SCAN</h1>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="container has-background-info">
+      <h1 class="title">Hello {{ steam_id }}!</h1>
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Tweets</p>
+            <p class="title">3,456</p>
+          </div>
+        </div>
+      </nav>
+      <ul>
+        {%- for link in links %}
         <li><a href="{{ link.url }}">{{ link.name }}</a></li>
-      {% endfor %}
-    </ul>
-  </body>
+        {% endfor %}
+      </ul>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>Made by Mammoth with ❤️</p>
+    </div>
+  </footer>
+  <link rel="stylesheet" href="/static/css/bulma.min.css">
+</body>
+
 </html>
