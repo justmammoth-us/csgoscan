@@ -28,7 +28,7 @@ def build_media_links(steam_id) -> list:
 
 @app.get("/{id_type}/{community_id}")
 async def profiler(request: Request, profile: Profile = Depends(get_profile)):
-    profile.links = build_media_links(profile.id)
+    profile.medias = build_media_links(profile.id)
 
     return templates.TemplateResponse(
         "index.html.j2",

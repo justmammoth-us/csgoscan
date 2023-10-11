@@ -8,42 +8,55 @@
   <link id="favicon" rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 </head>
 
-<body class="has-background-success">
-  <header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <h1 class="title">CS SCAN</h1>
-      </div>
-    </nav>
-  </header>
-  <main>
-    <div class="container has-background-info">
-      <h1 class="title">Hello {{ profile.name }}!</h1>
-      <nav class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Faceit Level</p>
-            <p class="title">3,456</p>
+<body>
+  <section class="hero is-dark is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a href="/">
+              <img src="/static/images/logo.jpg" width="128" height="128" alt="csscan">
+            </a>
           </div>
-          <div class="level-item has-text-centered">
-            <div>
-              <p class="heading">Time played</p>
-              <p class="title">3,456</p>
-            </div>
-          </div>
+        </div>
       </nav>
-      <ul>
-        {%- for link in profile.links %}
-        <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="column">
+        <div class="block has-text-centered">
+          <p class="title"> Welcome on <span class="has-text-weight-bold">{{ profile.name }}</span>'s profile.</p>
+        </div>
+        {%- for media in profile.medias %}
+        <div class="block">
+          <a href="{{ media.url }}" target="_blank">
+            <div class="card has-background-white-ter">
+              <div class="card-content">
+                <p class="subtitle has-text-grey">
+                  {{ media.name }}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
         {% endfor %}
-      </ul>
+      </div>
     </div>
-  </main>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>Made by Mammoth with ❤️</p>
+
+    <!-- Hero footer: will stick at the bottom -->
+    <div class="hero-foot">
+      <footer class="footer has-background-dark">
+        <div class="block">
+          <div class="content has-text-centered has-text-white-smoke">
+            <p>Made by Mammoth with ❤️</p>
+          </div>
+        </div>
+      </footer>
     </div>
-  </footer>
+  </section>
+
   <link rel="stylesheet" href="/static/css/bulma.min.css">
 </body>
 

@@ -6,4 +6,4 @@ class Profile:
     id: str
     name: str
     alias: str | None = None
-    links: list[dict] = field(default_factory=list)
+    medias: list[dict] = field(default_factory=list)
