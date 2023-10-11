@@ -18,7 +18,7 @@
   </header>
   <main>
     <div class="container has-background-info">
-      <h1 class="title">Hello {{ user.name }}!</h1>
+      <h1 class="title">Hello {{ profile.name }}!</h1>
       <nav class="level">
         <div class="level-item has-text-centered">
           <div>
@@ -33,7 +33,7 @@
           </div>
       </nav>
       <ul>
-        {%- for link in user.links %}
+        {%- for link in profile.links %}
         <li><a href="{{ link.url }}">{{ link.name }}</a></li>
         {% endfor %}
       </ul>
