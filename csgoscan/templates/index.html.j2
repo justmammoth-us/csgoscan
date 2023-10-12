@@ -9,52 +9,76 @@
 </head>
 
 <body>
-  <section class="hero is-dark is-fullheight">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a href="/">
-              <img src="/static/images/logo.jpg" width="128" height="128" alt="csscan">
-            </a>
-          </div>
-        </div>
-      </nav>
+  <nav class="navbar is-dark">
+    <div class="navbar-brand">
+      <a href="/">
+        <img src="/static/images/logo.jpg" width="128" height="128" alt="csscan">
+      </a>
     </div>
+  </nav>
 
+  <section class="hero is-dark is-fullheight-with-navbar">
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
       <div class="column">
         <div class="block has-text-centered">
           <p class="title"> Welcome on <span class="has-text-weight-bold">{{ profile.name }}</span>'s profile.</p>
         </div>
-        {%- for media in profile.medias %}
-        <div class="block">
-          <a href="{{ media.url }}" target="_blank">
-            <div class="card has-background-white-ter">
-              <div class="card-content">
-                <p class="subtitle has-text-grey">
-                  {{ media.name }}
-                </p>
+
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Tweets</p>
+              <p class="title">3,456</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Following</p>
+              <p class="title">123</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Followers</p>
+              <p class="title">456K</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Likes</p>
+              <p class="title">789</p>
+            </div>
+          </div>
+        </nav>
+
+        <div class="columns is-centered">
+          {%- for media in profile.medias %}
+          <div class="column is-2">
+            <a href="{{ media.url }}" target="_blank">
+              <div class="card has-background-white-ter has-text-centered">
+                <div class="card-content">
+                  <p class="subtitle has-text-grey">
+                    {{ media.name }}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Hero footer: will stick at the bottom -->
+        <div class="hero-foot">
+          <footer class="footer has-background-dark">
+            <div class="block">
+              <div class="content has-text-centered has-text-white-smoke">
+                <p>Made by Mammoth with ❤️</p>
               </div>
             </div>
-          </a>
+          </footer>
         </div>
-        {% endfor %}
       </div>
-    </div>
-
-    <!-- Hero footer: will stick at the bottom -->
-    <div class="hero-foot">
-      <footer class="footer has-background-dark">
-        <div class="block">
-          <div class="content has-text-centered has-text-white-smoke">
-            <p>Made by Mammoth with ❤️</p>
-          </div>
-        </div>
-      </footer>
-    </div>
   </section>
 
   <link rel="stylesheet" href="/static/css/bulma.min.css">
