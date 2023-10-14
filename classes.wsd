@@ -1,0 +1,41 @@
+@startuml test
+
+abstract class Media {
+  - protocol
+  + media_host
+  + media_url
+  + profile_path
+  + profile_id
+  + profile_url
+}
+
+class Steam {
+  name
+  alias
+  time_played
+}
+
+class Faceit {
+  + level
+  + elo
+  + name
+  + games_played
+}
+
+class CSGOBackpack 
+class FaceitFinder
+class Leetify 
+class CSStats
+
+class Player {
+  + steam
+  + medias
+}
+
+Media --|> Steam
+Media --|> Faceit
+Media --|> CSGOBackpack
+Media --|> FaceitFinder
+Media --|> Leetify 
+Media --|> CSStats
+Player "1" --> "*" Media
