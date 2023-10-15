@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSSCAN</title>
+  <link id="favicon" rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+
+<body>
+  <nav class="navbar is-success">
+    <div class="navbar-brand">
+      <a href="/">
+        <img src="/static/images/logo.jpg" width="128" height="128" alt="csscan">
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero is-warning is-medium">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title"> Welcome on <span class="has-text-weight-bold">{{ player.steam.name }}</span>'s profile</p>
+      </div>
+    </div>
+  </section>
+
+  {% include "components/steam_card.html.j2" %}
+  {% include "components/faceit_card.html.j2" %}
+
+  <footer class="footer has-background-success">
+    <div class="content has-text-centered">
+      <p>Made by Mammoth with ❤️</p>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="/static/css/bulma.min.css">
+</body>
+
+</html>

@@ -14,12 +14,10 @@ async def get_player(community_id: str = Path(), id_type: Steam.IDType = Path())
     faceit_finder = await FaceitFinder.get_profile(steam.id)
 
     return {
-        "media": {
-            "steam": asdict(steam),
-            "faceit": asdict(faceit),
-            "csgo_backpack": asdict(csgo_backpack),
-            "cs_stats": asdict(cs_stats),
-            "leetify": asdict(leetify),
-            "faceit_finder": asdict(faceit_finder),
-        },
+        "steam": asdict(steam),
+        "faceit": asdict(faceit),
+        "csgo_backpack": asdict(csgo_backpack),
+        "cs_stats": asdict(cs_stats),
+        "leetify": asdict(leetify),
+        "faceit_finder": asdict(faceit_finder),
     }
