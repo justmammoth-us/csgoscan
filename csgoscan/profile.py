@@ -23,5 +23,8 @@ class SteamProfile(Profile):
 class FaceitProfile(Profile):
     level: int
     elo: int
-    name: str
+    internal_id: str
     games_played: str
+    game: str
+    country: str
+    banned: bool

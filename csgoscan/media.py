@@ -5,6 +5,7 @@ import xmltodict
 
 from csgoscan.profile import FaceitProfile, Profile, SteamProfile
 from csgoscan.settings import settings
+from csgoscan.errors import FaceitProfileNotExistError
 
 
 class Media:
@@ -75,22 +76,46 @@ class Faceit(Media):
     path: str = "/en/players/{}"
 
     @classmethod
-    async def _get_profile(cls, ctx, steam_id: str) -> FaceitProfile:
-        page = requests.get(
-            f"https://open.faceit.com/data/v4/players?game=cs2&game_player_id={steam_id}",
+    async def _fetch_profile_by_game(cls, game: str, steam_id: str) -> dict:
+        response = requests.get(
+            f"https://open.faceit.com/data/v4/players?game={game}&game_player_id={steam_id}",
             headers={"Authorization": f"Bearer {settings.faceit_api_key}"},
         )
-        data = page.json()
 
-        cs2_data = data.get("games", {}).get("cs2")
+        if response.status_code == 404:
+            raise FaceitProfileNotExistError(game)
+
+        return response.json()
+
+    @classmethod
+    async def _is_profile_banned(cls, game: str, internal_id: str) -> bool:
+        return False
+
+    @classmethod
+    async def _get_profile(cls, ctx, steam_id: str) -> FaceitProfile:
+        try:
+            game = "cs2"
+            data = await cls._fetch_profile_by_game(game, steam_id)
+        except FaceitProfileNotExistError:
+            game = "csgo"
+            data = await cls._fetch_profile_by_game(game, steam_id)
+
+        games_data = data.get("games", {}).get(game)
+        faceit_id = data.get("nickname")
+        internal_id = data.get("player_id")
+
+        banned = await cls._is_profile_banned(game, internal_id)
 
         return FaceitProfile(
             ctx=ctx,
-            id=data.get("nickname"),
-            level=cs2_data.get("skill_level"),
-            elo=cs2_data.get("faceit_elo"),
-            name=data.get("nickname"),
+            game=game,
+            id=faceit_id,
+            level=games_data.get("skill_level"),
+            elo=games_data.get("faceit_elo"),
+            internal_id=internal_id,
             games_played=0,
+            country=data.get("country"),
+            banned=banned,
         )
 
 
