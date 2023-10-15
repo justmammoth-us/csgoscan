@@ -25,11 +25,10 @@ async def player(
     player: dict = Depends(get_player),
     raw: bool = Query(default=False),
 ):
-    return (
-        templates.TemplateResponse(
-            "player.html.j2",
-            {"request": request, "player": player},
-        )
-        if not raw
-        else player
+    if raw:
+        return player
+
+    return templates.TemplateResponse(
+        "player_page.html.j2",
+        {"request": request, "player": player},
     )

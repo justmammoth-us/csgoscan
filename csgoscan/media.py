@@ -65,13 +65,14 @@ class Steam(Media):
             name=profile.get("steamID"),
             alias=profile.get("customURL"),
             time_played=0,
+            avatar=profile.get("avatarFull"),
         )
 
 
 class Faceit(Media):
-    name: str = "Faceit Finder"
-    host: str = "faceitfinder.com"
-    path: str = "profile/{}"
+    name: str = "Faceit"
+    host: str = "faceit.com"
+    path: str = "/en/players/{}"
 
     @classmethod
     async def _get_profile(cls, ctx, steam_id: str) -> FaceitProfile:

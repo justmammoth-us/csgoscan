@@ -16,6 +16,7 @@ class SteamProfile(Profile):
     alias: str
     name: str
     time_played: int
+    avatar: str
 
 
 @dataclass

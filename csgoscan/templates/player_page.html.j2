@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ player.steam.name }} | CSSCAN</title>
+
+  <link id="favicon" rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+  <link rel="stylesheet" href="/static/css/bulma.min.css">
+
+  <script defer src="/static/js/all.min.js"></script>
+</head>
+
+<body>
+  {# <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/">
+        <img src="/static/images/logo.jpg" width="128" height="128" alt="csscan">
+      </a>
+    </div>
+  </nav> #}
+
+  <nav class="navbar">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item">
+          CSSCAN
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-dark" href="https://steamcommunity.com/profiles/76561198069504185">Send me offers</a>
+            <a class="button is-dark is-outlined"
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Send me
+              nudes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  {# <div class="container">
+    {% include "components/player_card.html.j2"%}
+  </div> #}
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container">
+        {% include "components/player_card.html.j2"%}
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>Made with ❤️ by Mammoth </p>
+        </div>
+      </footer>
+
+    </div>
+
+  </section>
+
+
+
+
+</body>
+
+</html>

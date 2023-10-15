@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-96x96">
+          <img src="{{ player.steam.avatar }}" alt="Steam image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{ player.steam.name }}</p>
+        <p class="subtitle is-7 has-text-grey">{{ player.steam.id }}</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="block">
+        {% include "components/steam_media_card.html.j2" %}
+      </div>
+      <div class="block">
+        {% include "components/faceit_media_card.html.j2" %}
+      </div>
+      <div class="block">
+        {% include "components/other_media_card.html.j2" %}
+      </div>
+    </div>
+  </div>
+</div>
