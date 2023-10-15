@@ -1,13 +1,11 @@
 """FastAPI app for FaceitFinder redirector"""
 
-from fastapi import Depends, FastAPI, Request, Path
+from fastapi import Depends, FastAPI, Path, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 import csgoscan
-
 from csgoscan.dependencies import get_player
-
 
 app = FastAPI()
 

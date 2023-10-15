@@ -1,13 +1,8 @@
 from dataclasses import asdict
+
 from fastapi import Path
-from csgoscan.media import (
-    Steam,
-    Faceit,
-    CSGOBackpack,
-    CSStats,
-    Leetify,
-    FaceitFinder,
-)
+
+from csgoscan.media import CSGOBackpack, CSStats, Faceit, FaceitFinder, Leetify, Steam
 
 
 async def get_player(community_id: str = Path(), id_type: Steam.IDType = Path()):

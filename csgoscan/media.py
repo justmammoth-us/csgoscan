@@ -1,9 +1,10 @@
-import requests
-import xmltodict
 from enum import Enum
 
+import requests
+import xmltodict
+
+from csgoscan.profile import FaceitProfile, Profile, SteamProfile
 from csgoscan.settings import settings
-from csgoscan.profile import Profile, SteamProfile, FaceitProfile
 
 
 class Media:
