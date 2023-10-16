@@ -1,6 +1,6 @@
 """FastAPI app for FaceitFinder redirector"""
 
-from fastapi import Depends, FastAPI, Request, Query
+from fastapi import Depends, FastAPI, Query, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 

@@ -3,9 +3,9 @@ from enum import Enum
 import requests
 import xmltodict
 
+from csgoscan.errors import FaceitProfileNotExistError
 from csgoscan.profile import FaceitProfile, Profile, SteamProfile
 from csgoscan.settings import settings
-from csgoscan.errors import FaceitProfileNotExistError
 
 
 class Media:
