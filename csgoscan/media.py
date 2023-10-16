@@ -48,24 +48,41 @@ class Steam(Media):
     path: str = "profiles/{}"
 
     @classmethod
+    async def _fetch_profile_page(cls, community_id, id_type):
+        url = f"https://{cls.host}/{id_type.value}/{community_id}?xml=1"
+        page = requests.get(url)
+        data = xmltodict.parse(page.content)
+        return data.get("profile")
+
+    @classmethod
+    async def _fetch_time(cls, steam_id):
+        url = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={settings.steam_api_key}&steamid={steam_id}&format=json"
+        page = requests.get(url)
+        data = page.json()
+        games = data.get("response").get("games")
+        game = next((g for g in games if g["appid"] == 730), None)
+        return game
+
+    @classmethod
     async def _get_profile(
         cls, ctx, community_id: str, id_type: IDType
     ) -> SteamProfile:
         """Get an ID from an alias"""
-        community_page = f"https://{cls.host}/{id_type.value}/{community_id}?xml=1"
-        page = requests.get(community_page)
-        steam_profile_dict = xmltodict.parse(page.content)
-
-        profile = steam_profile_dict.get("profile")
+        profile = await cls._fetch_profile_page(community_id, id_type)
         if not profile:
             raise Exception("No profile")
 
+        steam_id = profile.get("steamID64")
+
+        times_data = await cls._fetch_time(steam_id)
+
         return SteamProfile(
             ctx=ctx,
-            id=profile.get("steamID64"),
+            id=steam_id,
             name=profile.get("steamID"),
             alias=profile.get("customURL"),
-            time_played=0,
+            time_played=times_data.get("playtime_forever"),
+            last_weeks_time_played=times_data.get("playtime_2weeks"),
             avatar=profile.get("avatarFull"),
         )
 
