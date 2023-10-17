@@ -16,9 +16,11 @@
       <div class="block">
         {% include "components/steam_media_card.html.j2" %}
       </div>
+      {% if "faceit" in player %}
       <div class="block">
         {% include "components/faceit_media_card.html.j2" %}
       </div>
+      {% endif %}
       <div class="block">
         {% include "components/other_media_card.html.j2" %}
       </div>

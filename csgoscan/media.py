@@ -48,19 +48,23 @@ class Steam(Media):
     path: str = "profiles/{}"
 
     @classmethod
-    async def _fetch_profile_page(cls, community_id, id_type):
+    async def _fetch_profile_page(cls, community_id, id_type) -> dict:
         url = f"https://{cls.host}/{id_type.value}/{community_id}?xml=1"
         page = requests.get(url)
         data = xmltodict.parse(page.content)
         return data.get("profile")
 
     @classmethod
-    async def _fetch_time(cls, steam_id):
+    async def _fetch_time(cls, steam_id) -> dict:
         url = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={settings.steam_api_key}&steamid={steam_id}&format=json"
-        page = requests.get(url)
-        data = page.json()
-        games = data.get("response").get("games")
-        game = next((g for g in games if g["appid"] == 730), None)
+        response = requests.get(url)
+        if response.status_code != 200:
+            return {}
+        data = response.json()
+        games = data.get("response", {}).get("games")
+        if not games:
+            return {}
+        game = next((g for g in games if g["appid"] == 730), {})
         return game
 
     @classmethod
@@ -81,8 +85,8 @@ class Steam(Media):
             id=steam_id,
             name=profile.get("steamID"),
             alias=profile.get("customURL"),
-            time_played=times_data.get("playtime_forever"),
-            last_weeks_time_played=times_data.get("playtime_2weeks"),
+            time_played=times_data.get("playtime_forever", 0),
+            last_weeks_time_played=times_data.get("playtime_2weeks", 0),
             avatar=profile.get("avatarFull"),
         )
 
