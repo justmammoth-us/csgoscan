@@ -25,11 +25,11 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/csgoscan:latest
-      - name: Build and push as ${{ env.version }}
+      - name: Build and push as ${{ env.VERSION }}
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ env.version }}
+          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ env.VERSION }}
 
   deploy:
     runs-on: ubuntu-latest
