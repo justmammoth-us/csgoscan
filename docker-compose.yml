@@ -6,6 +6,7 @@ networks:
 
 services:
   app:
+    container_name: csgoscan
     image: registry.justmammoth.us/csgoscan:${IMAGE_VERSION}
     restart: unless-stopped
     networks:
