@@ -5,9 +5,8 @@ networks:
     external: true
 
 services:
-  csgoscan:
-    container_name: csgoscan
-    image: registry.justmammoth.us/csgoscan/csgoscan:0.1
+  app:
+    image: registry.justmammoth.us/csgoscan/csgoscan:latest
     restart: unless-stopped
     networks:
       - frontend
