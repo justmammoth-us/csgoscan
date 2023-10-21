@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  VERSION: ${{ github.ref_name }}
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -25,11 +22,11 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/csgoscan:latest
-      - name: Build and push as ${{ env.VERSION }}
+      - name: Build and push as ${{ github.ref_name }}
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ env.VERSION }}
+          tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ github.ref_name }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +46,7 @@ jobs:
                     "repository": "felixcapuano/csgoscan",
                     "branch": "main",
                     "file": "docker-compose.yml",
-                    "environment": "IMAGE_VERSION=${{ env.VERSION }}\nSTEAM_API_KEY=${{ secrets.STEAM_API_KEY }}\nFACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}"
+                    "environment": "IMAGE_VERSION=${{ github.ref_name }}\nSTEAM_API_KEY=${{ secrets.STEAM_API_KEY }}\nFACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}"
                 }
             }
         env:
