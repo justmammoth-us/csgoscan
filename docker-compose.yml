@@ -6,7 +6,7 @@ networks:
 
 services:
   app:
-    image: registry.justmammoth.us/csgoscan/csgoscan:${IMAGE_VERSION}
+    image: registry.justmammoth.us/csgoscan:${IMAGE_VERSION}
     restart: unless-stopped
     networks:
       - frontend
