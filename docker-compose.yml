@@ -10,3 +10,6 @@ services:
     restart: unless-stopped
     networks:
       - frontend
+    environment:
+      STEAM_API_KEY: ${STEAM_API_KEY}
+      FACEIT_API_KEY: ${FACEIT_API_KEY}
