@@ -1,1 +1,18 @@
+name: Docker Image CI
 
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: felixcapuano/server-deployment/.github/workflows/trigger_deployment.yml@main
+    with:
+      name: csgoscan
+      repository: ${{ github.repository }}
+      branch: main
+      file: docker-compose.yml
+      environment: |
+        IMAGE_VERSION=latest
+        STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
+        FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
+    secrets: inherit
