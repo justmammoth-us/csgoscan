@@ -2,6 +2,10 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        default: latest
 
 jobs:
   deploy:
@@ -12,7 +16,7 @@ jobs:
       branch: main
       file: docker-compose.yml
       environment: |
-        IMAGE_VERSION=latest
+        IMAGE_VERSION=${{ inputs.version }}
         STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
         FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
     secrets: inherit
