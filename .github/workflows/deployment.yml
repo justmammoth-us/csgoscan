@@ -8,6 +8,12 @@ on:
         default: latest
         description: image version
 
+env:
+  ENVIRONMENT: |
+    IMAGE_VERSION=${{ inputs.image_version }}
+    STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
+    FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
+
 jobs:
   deploy:
     uses: justmammoth-us/server-actions/.github/workflows/stack_deployment.yml@main
@@ -18,7 +24,4 @@ jobs:
       file: docker-compose.yml
     secrets:
       DEPLOYMENT_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
-      environment: |
-        IMAGE_VERSION=${{ inputs.image_version }}
-        STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
-        FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
+      environment: ${{ env.ENVIRONMENT }}
