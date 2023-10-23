@@ -1,4 +1,4 @@
-name: Run deployment for specific version
+name: Run deployment
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    uses: justmammoth-us/server-deployment/.github/workflows/deployment.yml@main
+    uses: justmammoth-us/server-actions/.github/workflows/deployment.yml@main
     with:
       name: csgoscan
       repository: ${{ github.repository }}
