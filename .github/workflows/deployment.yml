@@ -1,22 +1,23 @@
-name: Docker Image CI
+name: Run deployment for specific version
 
 on:
   workflow_dispatch:
     inputs:
-      version:
+      image_version:
         required: false
         default: latest
+        description: image version
 
 jobs:
   deploy:
-    uses: "felixcapuano/server-deployment/.github/workflows/deployment.yml@main"
+    uses: "justmammoth-us/server-deployment/.github/workflows/deployment.yml@main"
     with:
       name: csgoscan
       repository: ${{ github.repository }}
       branch: main
       file: docker-compose.yml
       environment: |
-        IMAGE_VERSION=${{ inputs.version }}
+        IMAGE_VERSION=${{ inputs.image_version }}
         STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
         FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
     secrets: inherit
