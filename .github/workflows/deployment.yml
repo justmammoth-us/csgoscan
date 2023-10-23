@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    uses: justmammoth-us/server-deployment/.github/workflows/deploy_stack.yml@main
+    uses: justmammoth-us/server-actions/.github/workflows/stack_deployment.yml@main
     with:
       name: csgoscan
       repository: ${{ github.repository }}
