@@ -10,9 +10,6 @@ on:
 
 env:
   ENVIRONMENT: |
-    IMAGE_VERSION=${{ inputs.image_version }}
-    STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
-    FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
 
 jobs:
   deploy:
@@ -24,4 +21,4 @@ jobs:
       file: docker-compose.yml
     secrets:
       DEPLOYMENT_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
-      environment: ${{ env.ENVIRONMENT }}
+      environment: IMAGE_VERSION=${{ inputs.image_version }}\nSTEAM_API_KEY=${{ secrets.STEAM_API_KEY }}\nFACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
