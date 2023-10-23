@@ -16,8 +16,9 @@ jobs:
       repository: ${{ github.repository }}
       branch: main
       file: docker-compose.yml
+    secrets:
+      DEPLOYMENT_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
       environment: |
         IMAGE_VERSION=${{ inputs.image_version }}
         STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
         FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
-    secrets: inherit
