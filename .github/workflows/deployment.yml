@@ -1,4 +1,4 @@
-name: Run deployment
+i"name: Run deployment
 
 on:
   workflow_dispatch:
@@ -15,11 +15,7 @@ jobs:
       name: csgoscan
       repository: ${{ github.repository }}
       branch: main
-      file: docker-compose.yml
-      test: |
-        line1
-        line2
-        line3        
+      file: docker-compose.yml     
     secrets:
       DEPLOYMENT_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
       environment: | 
