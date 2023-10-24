@@ -29,15 +29,15 @@ jobs:
           tags: ${{ secrets.REGISTRY_URL }}/csgoscan:${{ github.ref_name }}
 
   deploy:
-    needs: [build-and-push]
-    uses: felixcapuano/server-deployment/.github/workflows/trigger_deployment.yml@main
+    uses: justmammoth-us/server-actions/.github/workflows/stack_deployment.yml@main
     with:
       name: csgoscan
       repository: ${{ github.repository }}
       branch: main
-      file: docker-compose.yml
-      environment: |
+      file: docker-compose.yml     
+    secrets:
+      DEPLOYMENT_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
+      environment: | 
         IMAGE_VERSION=${{ github.ref_name }}
         STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}
         FACEIT_API_KEY=${{ secrets.FACEIT_API_KEY }}
-    secrets: inherit
