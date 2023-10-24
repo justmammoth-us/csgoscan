@@ -1,4 +1,4 @@
-i"name: Run deployment
+name: Run deployment
 
 on:
   workflow_dispatch:
