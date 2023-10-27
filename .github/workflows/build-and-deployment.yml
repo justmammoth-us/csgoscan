@@ -30,6 +30,7 @@ jobs:
 
   deploy:
     uses: justmammoth-us/server-actions/.github/workflows/stack_deployment.yml@main
+    needs: [build-and-push]
     with:
       name: csgoscan
       repository: ${{ github.repository }}
